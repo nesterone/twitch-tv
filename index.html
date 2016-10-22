@@ -10,6 +10,7 @@
     <!-- Bootstrap -->
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="twitch.streamers.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,9 +19,45 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/template" data-template-name="row-online-template">
+        <div class="row {{ online }}">
+            <div class="col-xs-2 col-sm-1" id="icon">
+                <img src="{{ logo }}" class="logo">
+            </div>
+            <div class="col-xs-10 col-sm-3" id="name">
+                <a href="{{ url }}" target="_blank">{{ name }}</a>
+            </div>
+            <div class="col-xs-10 col-sm-8" id="streaming" class="js-streaming">
+                {{ description }}
+            </div>
+        </div>
+    </script>
+
+    <script type="text/template" data-template-name="row-description">
+        {{ game }}<span class="hidden-xs">{{ status }}</span>
+    </script>
+
 </head>
 <body>
-<h1>Hello, world!</h1>
+<div class="container">
+    <div class="row" id="header">
+        <h1>Twitch Streamers</h1>
+        <div class="menu">
+            <div class="selector active" id="all">
+                <div class="circle"></div><p>All</p>
+            </div>
+            <div class="selector" id="online">
+                <div class="circle"></div><p>Online</p>
+            </div>
+            <div class="selector" id="offline">
+                <div class="circle"></div><p>Offline</p>
+            </div>
+        </div>
+    </div>
+    <div id="display" class="js-display">
+    </div>
+    <div class="row" id="footer"></div>
+</div>
 <!--ES6 Promise Polyfill-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-promise/4.0.5/es6-promise.min.js"></script>
 

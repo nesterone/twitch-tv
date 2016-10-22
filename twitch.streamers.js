@@ -40,7 +40,28 @@
         )
     })
     .then(function (channels) {
-       console.log(channels)
+
+        var rowTemplate = $("script[data-template-name='row-online-template']").text(),
+            rowDescriptionTemplate = $("script[data-template-name='row-description']").text();
+
+        return channels.map(function (channel) {
+
+            var description = rowDescriptionTemplate
+                                .replace("{{ game }}", channel.game)
+                                .replace("{{ status }}", channel.status);
+
+            return rowTemplate
+                .replace("{{ online }}", channel.online ? "online" : "offline")
+                .replace("{{ logo }}", channel.logo)
+                .replace("{{ url }}", channel.url)
+                .replace("{{ name }}", channel.name)
+                .replace("{{ description }}", description);
+        });
+    })
+    .then(function (channels) {
+        channels.forEach(function (channel) {
+            $(".js-display").append($(channel));
+        });
     })
     .catch(function errorHandler(err) {
         console.error(err);
